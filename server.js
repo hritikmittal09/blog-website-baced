@@ -16,8 +16,8 @@ const __dirname = dirname(__filename);
 const app = express()
 
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json()); // For JSON payloads
+app.use(express.urlencoded({ extended: true })); 
 app.set("views", path.join(__dirname))
 app.set("view engine", "ejs")
 app.use("/auth",authRouter )
