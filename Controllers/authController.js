@@ -97,7 +97,7 @@ export const loginCheck = (req,res,next)=>{
     try {
         let decodedToken =jwt.verify(token,secretKey)
         if (decodedToken) {
-            console.log(decodedToken);
+           // console.log(decodedToken);
             next()
             
         }else{
