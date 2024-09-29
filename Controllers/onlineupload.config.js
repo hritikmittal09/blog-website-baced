@@ -7,9 +7,9 @@ export async function onlineUpload(imagepath) {
 
     // Configuration
     cloudinary.config({ 
-        cloud_name: 'drgrkk7ml', 
-        api_key: '291429856423827', 
-        api_secret: 'x5RnMjJmjM-hb-IAKO4GhN2XTxU' // Click 'View API Keys' above to copy your API secret
+        cloud_name: process.env.cloud_name, 
+        api_key: process.env.cloud_api_key, 
+        api_secret: process.env.coud_secrect_key // Click 'View API Keys' above to copy your API secret
     });
     
     // Upload an image

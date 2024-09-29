@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { connectDb, sequelize } from "./db/connectDb.js";
 import authRouter from "./routes/authRouter.js";
+import 'dotenv/config'
 const __filename = fileURLToPath(import.meta.url);
 
 // Get the directory name
@@ -42,6 +43,8 @@ app.listen(3000,async ()=>{
   await  connectDb()
   //const modelsCreated = await sequelize.sync()
   //console.log(modelsCreated);
+  
+  
   
     console.log("server is running....");
     

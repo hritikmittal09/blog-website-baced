@@ -1,6 +1,6 @@
 import user from "../models/user.js"
 import jwt from 'jsonwebtoken';
-const secretKey = 'your-secret-key';
+const secretKey = process.env.secretKey
 export const registerController = async (req, res) =>{
     const body = req.body
     if (!body.name || ! body.email) {
