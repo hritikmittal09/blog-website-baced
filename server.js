@@ -9,12 +9,20 @@ import { connectDb, sequelize } from "./db/connectDb.js";
 import authRouter from "./routes/authRouter.js";
 import 'dotenv/config'
 const __filename = fileURLToPath(import.meta.url);
+import cors from 'cors';
+import helmet from "helmet";
 
 // Get the directory name
 const __dirname = dirname(__filename);
 
 
 const app = express()
+app.use(cors( {
+    origin : "*",
+    credentials : true
+} ))
+app.use(helmet())
+
 
 
 app.use(express.json()); // For JSON payloads
@@ -25,10 +33,6 @@ app.use("/auth",authRouter )
 app.use('/admin',adminRouter)
 app.use('/user',userRouter)
 
-app.get("/",(req,res)=>{
-    res.send("<h1> welcome to express </h1>")
-
-})
 
 
 app.use((req,res)=>{
