@@ -1,7 +1,7 @@
 import user from "../models/user.js"
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-const secretKey = "1233444555"
+const secretKey = process.env.secretKey
 export const registerController = async (req, res) =>{
     const body = req.body
     if (!body.name || ! body.email ||!body.password) {

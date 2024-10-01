@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import express from "express";
 import adminRouter from "./routes/adminRouter.js"
 import userRouter from './routes/UserRoute.js'
@@ -7,7 +8,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { connectDb, sequelize } from "./db/connectDb.js";
 import authRouter from "./routes/authRouter.js";
-import 'dotenv/config'
+
 const __filename = fileURLToPath(import.meta.url);
 import cors from 'cors';
 import helmet from "helmet";
