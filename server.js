@@ -36,15 +36,12 @@ app.use('/user',userRouter)
 
 
 
-app.use((req,res)=>{
-    res.send("page not Found")
-
-})
 
 
 
 
-app.listen(3000,async ()=>{
+const Port = process.env.Port||3000
+app.listen(Port,async ()=>{
   await  connectDb()
   //const modelsCreated = await sequelize.sync()
   //console.log(modelsCreated);
