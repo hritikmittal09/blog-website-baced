@@ -1,23 +1,21 @@
-import { DataTypes } from "sequelize";
-//import { Sequelize } from "sequelize";
-import { sequelize } from "../db/connectDb.js";
-const user = sequelize.define("user",{
-    id : {
-        type : DataTypes.INTEGER,
-        autoIncrement : true,
-        primaryKey : true,
-        allowNull : false,
-    },
-    name : DataTypes.STRING,
-    password :  DataTypes.STRING,
-    email :{ type : DataTypes.STRING,
-        unique : true
-        
-    },
+import mongoose from 'mongoose';
 
-})
-sequelize.sync(()=>{
-    console.log();
-    
-})
-export default user
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    }
+});
+
+const User = mongoose.model('User', userSchema);
+
+export default User;

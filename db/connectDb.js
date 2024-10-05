@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import mongoose from "mongoose";
 
 export const sequelize = new Sequelize({
     dialect: 'sqlite',
@@ -17,3 +18,13 @@ export const connectDb = async ()=>{
         
     }
 } 
+export const   connectMongodb= async ()=>{
+    try {
+       await mongoose.connect(process.env.db)
+    } catch (error) {
+        console.log("fail  to connct mongodb");
+        
+        
+    }
+
+}

@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 import path from 'path'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { connectDb, sequelize } from "./db/connectDb.js";
+import { connectDb, connectMongodb, sequelize } from "./db/connectDb.js";
 import authRouter from "./routes/authRouter.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -42,7 +42,7 @@ app.use('/user',userRouter)
 
 const Port = process.env.Port||3000
 app.listen(Port,async ()=>{
-  await  connectDb()
+  await  connectMongodb()
   //const modelsCreated = await sequelize.sync()
   //console.log(modelsCreated);
   

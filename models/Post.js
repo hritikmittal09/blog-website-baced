@@ -1,19 +1,20 @@
-import { DataTypes } from "sequelize";
-//import { Sequelize } from "sequelize";
-import { sequelize } from "../db/connectDb.js";
-const Post = sequelize.define("Post",{
-    id : {
-        type : DataTypes.INTEGER,
-        autoIncrement : true,
-        primaryKey : true,
-        allowNull : false,
+import mongoose from 'mongoose';
+
+const postSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
     },
-    title : DataTypes.STRING,
-    comment : DataTypes.STRING,
-    Image : DataTypes.STRING
-})
-sequelize.sync(()=>{
-    console.log("post table created");
-    
-})
-export default Post
+    comment: {
+        type: String,
+        required: true,
+    },
+    Image: {
+        type: String,
+        required: true,
+    }
+});
+
+const Post = mongoose.model('Post', postSchema);
+
+export default Post;

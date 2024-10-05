@@ -1,49 +1,49 @@
+import Post from "../models/Post.js"; // Assuming Post model is defined in models/Post.js
 
-import { where } from "sequelize"
-import { data } from "../data/data.js"
-import Post from "../models/Post.js"
-export const  userControllerworks = (req, res) =>{
+// Simple test controller
+export const userControllerworks = (req, res) => {
     res.status(200).json({
-        "message" : "user works"
-    })
-}
+        message: "user works"
+    });
+};
 
-
-
-export const  getdata = async(req, res) =>{
-    const p =await Post.findAll()
-    
-    res.status(200).json({
-        "message" : "success",
-        data : p 
-    })
-}
-
-export const  findProductById = async(req, res) =>{
-    const id = req.params.id
-    
+// Get all posts (replacing Sequelize's findAll with Mongoose's find)
+export const getdata = async (req, res) => {
     try {
-        const p =await Post.findAll({where : {id : id}})
-        if (p.length == 0) {
-            res.status(404).json({
-                "message" : "product not found ",
-                
-            })
-            
-        } else {
-            res.status(200).json({
-                "message" : "success",
-                data : p[0] 
-            })
-            
-        }
-        
-        
-       
+        const posts = await Post.find(); // Retrieves all posts
+
+        res.status(200).json({
+            message: "success",
+            data: posts
+        });
     } catch (error) {
         res.status(500).json({
-            "message " : ""
-        })
-        
+            message: "Internal server error",
+        });
     }
-}
+};
+
+// Find post by ID
+export const findProductById = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        // Find post by its MongoDB _id
+        const post = await Post.findById(id);
+
+        if (!post) {
+            return res.status(404).json({
+                message: "Product not found",
+            });
+        }
+
+        res.status(200).json({
+            message: "success",
+            data: post,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Internal server error",
+        });
+    }
+};

@@ -16,11 +16,12 @@ export const createPost = async (req, res) => {
     } else {
        try {
       let onlineUrl = await onlineUpload(image)
-         Post.create({
-             title: title,
-             comment: comment,
-             Image: onlineUrl ? onlineUrl : null
+         const newPost = new Post({
+            title : title,
+            Image : onlineUrl? onlineUrl :"",
+            comment : comment
          })
+         await newPost.save()
  
          res.status(201).json({
              message: "successfully created a post"
@@ -39,38 +40,45 @@ export const createPost = async (req, res) => {
 
 
 }
-export const deletePost = async (req,res)=>{
-    const id = req.params.id
-    const postExst = await Post.findAll({where :{id : id}})
-    if (postExst.length !=0) {
-        let imageNane = postExst[0].Image
-       // console.log(imageNane);
-        
-        imageNane = imageNane.split("/")
-        //console.log(imageNane);
-        
-        imageNane = imageNane[imageNane.length-1]
-        
-        imageNane = imageNane.split(".")
-        imageNane = imageNane[0]+ "."+imageNane[1]
-        const result = await delereImageFromOnline(imageNane)
-        if (result == "success") {
-           await Post.destroy({where :{iD :id}})
-           res.status(202).json({
-            message : "post deleted sucssfully"
-           })
-            
-        }else{
-            res.status(500).jsom({
-                message : "internal server error"
-            })
+
+export const deletePost = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        // Find the post by its ID
+        const postExst = await Post.findById(id);
+
+        if (postExst) {
+            let imageName = postExst.Image;
+
+            // Extract the image name from the path
+            imageName = imageName.split("/").pop();
+            imageName = imageName.split(".").slice(0, 2).join(".");
+
+            // Delete the image from online storage
+            const result = await deleteImageFromOnline(imageName);
+
+            if (result === "success") {
+                // Delete the post from MongoDB
+                await Post.findByIdAndDelete(id);
+
+                return res.status(202).json({
+                    message: "Post deleted successfully",
+                });
+            } else {
+                return res.status(500).json({
+                    message: "Internal server error",
+                });
+            }
+        } else {
+            return res.status(404).json({
+                message: "Post with this ID not found",
+            });
         }
-        
-    } else {
-        res.status(404).json({
-            message : "post with this id not found"
-        })
-        
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: "Internal server error",
+        });
     }
-    
-}
+};
