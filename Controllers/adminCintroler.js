@@ -1,7 +1,7 @@
 
 //import { json } from "body-parser";
 import Post from "../models/Post.js"
-import { delereImageFromOnline, onlineUpload } from "./onlineupload.config.js";
+import { deleteImageFromOnline, onlineUpload } from "./onlineupload.config.js";
 export const createPost = async (req, res) => {
     const title = req.body.title;
     const comment = (req.body.comment);

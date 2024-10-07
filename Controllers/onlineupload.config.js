@@ -35,7 +35,7 @@ export async function onlineUpload(imagepath) {
     }
     return uploadResult.secure_url
 }
-export const delereImageFromOnline = async (imageName)=>{
+export const deleteImageFromOnline = async (imageName)=>{
     //console.log(imageName,"call from delete fucton fom online");
     
     try {
