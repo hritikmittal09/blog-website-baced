@@ -19,7 +19,7 @@ const __dirname = dirname(__filename);
 
 const app = express()
 app.use(cors( {
-    origin : "*",
+    origin : 'https://blog-by-hritik.netlify.app',
     credentials : true
 } ))
 app.use(helmet())
